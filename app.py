@@ -270,13 +270,16 @@ class obligation:
 
 if "obligations" not in st.session_state:
     st.session_state.obligations = []
-    obligation.Toutes_les_oblig = []
 
 if "bam_data" not in st.session_state:
     st.session_state.bam_data = None
 
 if "bam_loaded" not in st.session_state:
     st.session_state.bam_loaded = False
+
+# Synchroniser la classe avec la session_state (IMPORTANT!)
+obligation.Toutes_les_oblig = st.session_state.obligations
+obligation.Data_BAM = st.session_state.bam_data
 
 
 # ============================================
@@ -415,7 +418,7 @@ with tab1:
                     st.rerun()
     
     # Table des obligations
-    if len(obligation.Toutes_les_oblig) > 0:
+    if len(st.session_state.obligations) > 0:
         st.markdown("### Obligations en portefeuille")
         
         data = []
@@ -423,7 +426,7 @@ with tab1:
         total_value = 0
         total_rate = 0
         
-        for idx, oblig in enumerate(obligation.Toutes_les_oblig):
+        for idx, oblig in enumerate(st.session_state.obligations):
             try:
                 taux_actu = oblig.calc_taux_actu() if st.session_state.bam_loaded else None
                 prix = oblig.calc_prix() if st.session_state.bam_loaded else None
@@ -458,7 +461,7 @@ with tab1:
         col1, col2, col3, col4 = st.columns(4)
         
         with col1:
-            st.metric("Obligations", len(obligation.Toutes_les_oblig))
+            st.metric("Obligations", len(st.session_state.obligations))
         
         with col2:
             st.metric("Nominal total", f"{total_nominal:,.2f}")
@@ -467,7 +470,7 @@ with tab1:
             st.metric("Valeur totale", f"{total_value:,.2f}")
         
         with col4:
-            avg_rate = (total_rate / len(obligation.Toutes_les_oblig) * 100) if len(obligation.Toutes_les_oblig) > 0 else 0
+            avg_rate = (total_rate / len(st.session_state.obligations) * 100) if len(st.session_state.obligations) > 0 else 0
             st.metric("Taux moyen", f"{avg_rate:.4f}%")
     else:
         st.info("📋 Aucune obligation en portefeuille. Ajoutez-en une pour commencer.")
