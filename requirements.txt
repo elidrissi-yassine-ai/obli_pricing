@@ -1,8 +1,10 @@
 streamlit
 pandas
 numpy
-openpyxl
 matplotlib
-dateutil
+openpyxl
+python-dateutil
+io
+urllib
 requests
-pytz
+datetime
