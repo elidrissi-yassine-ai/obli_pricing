@@ -1,0 +1,8 @@
+streamlit
+pandas
+numpy
+openpyxl
+matplotlib
+dateutil
+requests
+pytz
