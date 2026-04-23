@@ -364,11 +364,27 @@ with tab1:
             with col1:
                 nominal = st.number_input("Nominal", min_value=0.0, value=100000.0, step=100.0)
                 taux_facial = st.number_input("Taux facial (%)", min_value=0.0, value=3.0, step=0.01)
-                date_emission = st.date_input("Date d'émission")
+                date_emission = st.date_input(
+                    "Date d'émission",
+                    value=datetime(2020, 1, 1),
+                    min_value=datetime(1900, 1, 1),
+                    max_value=datetime(2100, 12, 31)
+                )
             
             with col2:
-                date_echeance = st.date_input("Date d'échéance")
-                date_eval = st.date_input("Date d'évaluation")
+                date_echeance = st.date_input(
+                    "Date d'échéance",
+                    value=datetime(2030, 1, 1),
+                    min_value=datetime(1900, 1, 1),
+                    max_value=datetime(2100, 12, 31)
+                )
+                
+                date_eval = st.date_input(
+                    "Date d'évaluation",
+                    value=datetime(2026, 2, 6),
+                    min_value=datetime(1900, 1, 1),
+                    max_value=datetime(2100, 12, 31)
+                )
                 freq = st.selectbox("Fréquence des coupons", 
                                    ["Annuel", "Semestriel", "Trimestriel", "Mensuel"],
                                    index=0)
