@@ -4,7 +4,6 @@ numpy
 matplotlib
 openpyxl
 python-dateutil
-io
 urllib
 requests
 datetime
